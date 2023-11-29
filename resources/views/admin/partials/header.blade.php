@@ -1,21 +1,13 @@
 <header>
-    <nav>
-        <ul class="nav">
-            <li class="nav-item">
-                <a class="nav-link" target="_blank" href="{{route('home')}}">Sito publico</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{route('admin.home')}}">Portfolio </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{route('admin.projects.index')}}">Progetti</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{route('admin.tecnologies.index')}}">Tecnologie</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{route('admin.types.index')}}">Tipi</a>
-            </li>
-        </ul>
-    </nav>
+    <nav class="navbar bg-black">
+        <div class="container-fluid">
+          <a class="navbar-brand text-light"  href="{{route('home')}}" target="_blank">Vai al sito</a>
+          <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button class="btn btn-outline-light" type="submit">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </button>
+        </form>
+        </div>
+      </nav>
 </header>
