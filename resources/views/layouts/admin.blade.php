@@ -15,7 +15,7 @@
 
     <div class="main-wrapper d-flex">
         @include('admin.partials.aside')
-        <div class="container my-4">
+        <div class="container py-4 overflow-auto">
             @yield('content')
         </div>
 
