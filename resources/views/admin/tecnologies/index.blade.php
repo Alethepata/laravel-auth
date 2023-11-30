@@ -48,8 +48,22 @@
                 @foreach ($tecnologies as $tecnology)
                    <tr>
                      <td>{{$tecnology->id}}</td>
-                     <td>{{$tecnology->name}}</td>
-                     <td><a class="btn btn-success" href="">Edit</a></td>
+
+                     <td>
+                        <form action="{{route('admin.tecnologies.update', $tecnology)}}" method="post" id="edit">
+                            @csrf
+                            @method('PUT')
+
+                            <input type="text" class="hidden border-0" value="{{ $tecnology->name }}" name="name" />
+
+                        </form>
+                    </td>
+
+                     <td>
+                        <button onclick="submit()" class="btn btn-warning" id="button-addon2">
+                            <i class="fa-solid fa-pencil"></i>
+                        </button>
+                    </td>
                    </tr>
                 @endforeach
 
@@ -57,5 +71,12 @@
         </table>
 
     </div>
+
+    <script>
+        function submit(){
+            const form =document.getElementById('edit')
+            form.submit();
+        }
+    </script>
 
 @endsection
