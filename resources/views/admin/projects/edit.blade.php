@@ -2,28 +2,28 @@
 
 @section('content')
 
-    <form action="{{route('admin.projects.update')}}" method="POST">
+    <form action="{{route('admin.projects.update', $project )}}" method="POST">
         @csrf
+        @method('PUT')
 
         <div class="mb-3">
-          <label for="name" class="form-label">Nome progetto</label>
-          <input type="text" class="form-control" name="name" value="{{$project->title}}">
+            <label for="title">Nome progetto</label>
+          <input type="text" placeholder="Nome progetto" class="form-control" name="title" value="{{$project->title}}">
         </div>
 
-        <div class="form-floating">
+        <div class="form-floating my-5">
             <textarea
             class="form-control"
-            placeholder="Descrizione"
-            value="{{$project->explanation}}"
             name="explanation"
+            placeholder="Descrizione"
             >
+            {{$project->explanation}}
            </textarea>
-
             <label for="explanation">Descrizione</label>
 
-          </div>
+        </div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Modifica</button>
       </form>
 
 
