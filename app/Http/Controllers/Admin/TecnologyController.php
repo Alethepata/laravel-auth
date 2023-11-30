@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Models\Tecnology;
+
 class TecnologyController extends Controller
 {
     /**
@@ -14,7 +16,8 @@ class TecnologyController extends Controller
      */
     public function index()
     {
-        return view('admin.tecnologies.index');
+        $tecnologies = Tecnology::all();
+        return view('admin.tecnologies.index', compact('tecnologies'));
     }
 
     /**
@@ -24,7 +27,7 @@ class TecnologyController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -35,7 +38,7 @@ class TecnologyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
