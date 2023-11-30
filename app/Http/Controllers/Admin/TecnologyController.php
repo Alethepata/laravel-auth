@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Tecnology;
+use App\Http\Requests\TecnologyRequest;
+
 
 class TecnologyController extends Controller
 {
@@ -36,8 +38,26 @@ class TecnologyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TecnologyRequest $request)
     {
+        $exist = Tecnology::where('name', $request->name)->first();
+
+        if ($exist) {
+            return redirect()->route('admin.tecnologies.index')->with('error', "$request->name esiste");
+        }else{
+
+            $form_data = $request->all();
+            $form_data['slug'] = Tecnology::generateSlug($form_data['name']);
+
+            $new_category = new Tecnology;
+            $new_category->fill($form_data);
+
+            $new_category->save();
+
+            return redirect()->route('admin.tecnologies.index')->with('success', 'Aggiunto correttamente');
+
+        }
+
 
     }
 
