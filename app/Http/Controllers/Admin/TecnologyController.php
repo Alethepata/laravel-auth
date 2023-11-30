@@ -90,9 +90,24 @@ class TecnologyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TecnologyRequest $request, Tecnology $tecnology )
     {
-        //
+        $exist = Tecnology::where('name', $request->name)->first();
+
+        if ($exist) {
+            return redirect()->route('admin.tecnologies.index');
+        }else{
+
+            $form_data = $request->all();
+
+            $form_data['slug'] = Tecnology::generateSlug($form_data['name']);
+
+
+            $tecnology->update($form_data);
+
+            return redirect()->route('admin.tecnologies.index')->with('success', 'Aggiornato correttamente');
+
+        }
     }
 
     /**
