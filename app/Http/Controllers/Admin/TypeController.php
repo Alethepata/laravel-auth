@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Models\Type;
+use App\Http\Requests\TypeRequest;
+
 class TypeController extends Controller
 {
     /**
@@ -14,7 +17,8 @@ class TypeController extends Controller
      */
     public function index()
     {
-        return view('admin.types.index');
+        $types = Type::all();
+        return view('admin.types.index', compact('types'));
     }
 
     /**
@@ -33,9 +37,25 @@ class TypeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TypeRequest $request)
     {
-        //
+        $exist = Type::where('name', $request->name)->first();
+
+        if ($exist) {
+            return redirect()->route('admin.types.index')->with('error', "$request->name esiste");
+        }else{
+
+            $form_data = $request->all();
+            $form_data['slug'] = Type::generateSlug($form_data['name']);
+
+            $new_type = new Type;
+            $new_type->fill($form_data);
+
+            $new_type->save();
+
+            return redirect()->route('admin.types.index')->with('success', 'Aggiunto correttamente');
+
+        }
     }
 
     /**
@@ -67,9 +87,24 @@ class TypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TypeRequest $request,Type $type)
     {
-        //
+        $exist = Type::where('name', $request->name)->first();
+
+        if ($exist) {
+            return redirect()->route('admin.types.index');
+        }else{
+
+            $form_data = $request->all();
+
+            $form_data['slug'] = Type::generateSlug($form_data['name']);
+
+
+            $type->update($form_data);
+
+            return redirect()->route('admin.types.index')->with('success', 'Aggiornato correttamente');
+
+        }
     }
 
     /**
@@ -78,8 +113,9 @@ class TypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Type $type)
     {
-        //
+        $type->delete();
+        return redirect()->route('admin.types.index')->with('success', 'Eliminato correttamente');
     }
 }
