@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('title',150);
             $table->string('slug',150);
-            $table->date('start_date');
-            $table->date('end_date');
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
             $table->text('explanation');
             $table->timestamps();
         });
