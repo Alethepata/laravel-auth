@@ -48,7 +48,7 @@
                      <td>{{$type->id}}</td>
 
                      <td>
-                        <form action="{{route('admin.types.update', $type)}}" method="post" id="edit">
+                        <form action="{{route('admin.types.update', $type)}}" method="post" id="edit-{{$type->id}}">
                             @csrf
                             @method('PUT')
 
@@ -58,7 +58,7 @@
                     </td>
 
                      <td>
-                        <button onclick="submit()" class="btn btn-warning" id="button-addon2">
+                        <button onclick="submit({{$type->id}})" class="btn btn-outline-warning" id="button-addon2">
                             <i class="fa-solid fa-pencil"></i>
                         </button>
 
@@ -77,8 +77,8 @@
     </div>
 
     <script>
-        function submit(){
-            const form =document.getElementById('edit')
+        function submit(id){
+            const form =document.getElementById('edit-'+id)
             form.submit();
         }
     </script>

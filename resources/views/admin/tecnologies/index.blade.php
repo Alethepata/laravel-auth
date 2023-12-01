@@ -50,7 +50,7 @@
                      <td>{{$tecnology->id}}</td>
 
                      <td>
-                        <form action="{{route('admin.tecnologies.update', $tecnology)}}" method="post" id="edit">
+                        <form action="{{route('admin.tecnologies.update', $tecnology)}}" method="post" id="edit-{{$tecnology->id}}">
                             @csrf
                             @method('PUT')
 
@@ -60,7 +60,7 @@
                     </td>
 
                      <td>
-                        <button onclick="submit()" class="btn btn-warning" id="button-addon2">
+                        <button onclick="submit({{$tecnology->id}})" class="btn btn-outline-warning" id="button-addon2">
                             <i class="fa-solid fa-pencil"></i>
                         </button>
 
@@ -79,8 +79,8 @@
     </div>
 
     <script>
-        function submit(){
-            const form =document.getElementById('edit')
+        function submit(id){
+            const form =document.getElementById('edit-'+id)
             form.submit();
         }
     </script>
